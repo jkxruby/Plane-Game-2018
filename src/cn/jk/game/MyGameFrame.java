@@ -49,12 +49,12 @@ public class MyGameFrame extends JFrame {
     class KeyMonitor extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e){  //KeyEvent 按压键盘的捕捉
-            System.out.println("按下" + e.getKeyCode());
+            plane.addDirection(e);
         }
 
         @Override
         public void keyReleased( KeyEvent e){   // 释放键盘
-            System.out.println("抬起" + e.getKeyCode());
+            plane.minusDirection(e);
         }
     }
 
