@@ -1,5 +1,7 @@
 package cn.jk.game;
 
+import sun.awt.image.OffScreenImage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -62,6 +64,9 @@ public class MyGameFrame extends JFrame {
         MyGameFrame f = new MyGameFrame();
         f.launchFrame();
     }
+
+
+
 
 
 }
