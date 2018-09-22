@@ -12,20 +12,21 @@ import java.awt.event.WindowEvent;
  */
 public class MyGameFrame extends JFrame {
 
-    Image plane = GameUtil.getImage("images/plane.png");
+    Image planeImg = GameUtil.getImage("images/plane.png");
     Image bg = GameUtil.getImage("images/bg.jpg");
-    int planeX=250, planeY=250;
+    //int planeX=250, planeY=250;
+    Plane plane = new Plane(planeImg,250,250);
 
     @Override
     public void paint(Graphics g){  //自动调用，g相当于画笔
-        g.drawImage(bg, 0,0,null);
-        g.drawImage(plane, planeX,planeY,null);
-        planeX ++;
+        g.drawImage(bg,0,0,null);
+
+        plane.drawSelf(g);  //画飞机
 
 
     }
 
-    //多线程
+    //多线程,帮助我们反复画窗口
     class PaintThread extends Thread{
         @Override
         public void run(){
