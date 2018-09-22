@@ -37,6 +37,10 @@ public class GameObject {
     public GameObject(){   //空构造器，又称无参构造器
 
     }
+ // 返回物体所在矩形，便于后续的碰撞检测
+    public Rectangle getRect(){
+        return new Rectangle((int)x, (int)y, width,height);
+    }
 
 
 }

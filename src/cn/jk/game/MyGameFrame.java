@@ -4,6 +4,8 @@ import sun.awt.image.OffScreenImage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -43,6 +45,19 @@ public class MyGameFrame extends JFrame {
         }
     }
 
+    // 定义键盘监听内部类
+    class KeyMonitor extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e){  //KeyEvent 按压键盘的捕捉
+            System.out.println("按下" + e.getKeyCode());
+        }
+
+        @Override
+        public void keyReleased( KeyEvent e){   // 释放键盘
+            System.out.println("抬起" + e.getKeyCode());
+        }
+    }
+
 
     // 初始化窗口
     public void launchFrame(){
@@ -58,7 +73,10 @@ public class MyGameFrame extends JFrame {
             }
 
         });
+
+
         new PaintThread().start(); //启动重画窗口线程
+        addKeyListener(new KeyMonitor());  //给窗口增加键盘的监听
     }
 
     public static void main(String[] args){
