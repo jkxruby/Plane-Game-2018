@@ -18,12 +18,14 @@ public class MyGameFrame extends JFrame {
     Image bg = GameUtil.getImage("images/bg.jpg");
     //int planeX=250, planeY=250;
     Plane plane = new Plane(planeImg,250,250);
+    Shell shell = new Shell();
 
     @Override
     public void paint(Graphics g){  //自动调用，g相当于画笔
         g.drawImage(bg,0,0,null);
 
         plane.drawSelf(g);  //画飞机
+        shell.draw(g);   //画炮弹
 
 
     }
@@ -63,7 +65,7 @@ public class MyGameFrame extends JFrame {
     public void launchFrame(){
         this.setTitle("2018新版飞机大战");
         this.setVisible(true);
-        this.setSize(500, 500);
+        this.setSize(Constant.GAME_WIDTH, Constant.GAME_HEIGHT);
         this.setLocation(300,300);
 
         this.addWindowListener(new WindowAdapter(){
