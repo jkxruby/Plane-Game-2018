@@ -19,13 +19,19 @@ public class MyGameFrame extends JFrame {
     //int planeX=250, planeY=250;
     Plane plane = new Plane(planeImg,250,250);
     Shell shell = new Shell();
+    Shell[] shells = new Shell[50];
+
 
     @Override
     public void paint(Graphics g){  //自动调用，g相当于画笔
         g.drawImage(bg,0,0,null);
 
         plane.drawSelf(g);  //画飞机
-        shell.draw(g);   //画炮弹
+        //shell.draw(g);   //画一个炮弹
+        for(int i=0; i<shells.length; i++){
+            shells[i].draw(g);
+        }
+
 
 
     }
@@ -79,6 +85,12 @@ public class MyGameFrame extends JFrame {
 
         new PaintThread().start(); //启动重画窗口线程
         addKeyListener(new KeyMonitor());  //给窗口增加键盘的监听
+
+        //初始化50个炮弹
+        for(int i=0; i<shells.length; i++){
+            shells[i] = new Shell();
+        }
+
     }
 
     public static void main(String[] args){
