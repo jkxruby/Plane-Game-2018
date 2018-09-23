@@ -1,13 +1,16 @@
 package cn.jk.game;
 
+import com.sun.tools.internal.jxc.ap.Const;
 import sun.awt.image.OffScreenImage;
 
-import javax.swing.*;
+//import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
 
 /** 飞机游戏的窗口
  * Created by jkx on 2018/9/22.
@@ -30,6 +33,14 @@ public class MyGameFrame extends JFrame {
         //shell.draw(g);   //画一个炮弹
         for(int i=0; i<shells.length; i++){
             shells[i].draw(g);
+
+            boolean peng = shells[i].getRect().intersects(plane.getRect());
+
+            if(peng){
+                plane.live = false;
+
+            }
+
         }
 
 
@@ -96,6 +107,17 @@ public class MyGameFrame extends JFrame {
     public static void main(String[] args){
         MyGameFrame f = new MyGameFrame();
         f.launchFrame();
+    }
+
+    //避免游戏出现闪烁的问题,实际就是增加一个缓存
+    private Image offScreenImage = null;
+
+    public void update(Graphics g){
+        if(offScreenImage == null)
+            offScreenImage = this.createImage(Constant.GAME_WIDTH,Constant.GAME_WIDTH); //这是游戏的高度和宽度
+        Graphics gOff = offScreenImage.getGraphics();
+        paint(gOff);
+        g.drawImage(offScreenImage,0,0,null);
     }
 
 
