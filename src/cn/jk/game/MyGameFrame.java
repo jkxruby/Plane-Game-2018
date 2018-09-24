@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 
 import javax.swing.JFrame;
 
@@ -24,10 +25,14 @@ public class MyGameFrame extends JFrame {
     Shell shell = new Shell();
     Shell[] shells = new Shell[50];
     Explode bao;  //这里没有new对象，这里只是声明bao 是一个爆炸对象
+    Date startTime = new Date();
+    Date endTime;
+    int period; //游戏持续的时间
 
 
     @Override
     public void paint(Graphics g){  //自动调用，g相当于画笔
+        Color c = g.getColor();
         g.drawImage(bg,0,0,null);
 
         plane.drawSelf(g);  //画飞机
@@ -42,13 +47,25 @@ public class MyGameFrame extends JFrame {
             boolean peng = shells[i].getRect().intersects(plane.getRect());
             if(peng){
                 plane.live = false;
-                if(bao == null){
+                if(bao == null) {
                     bao = new Explode(plane.x, plane.y);
+                    endTime = new Date();
+                    period = (int) ((endTime.getTime() - startTime.getTime()) / 1000);
                 }
+
+                g.setColor(Color.white);
+                g.drawString("时间：" + period + "秒", (int)plane.x, (int)plane.y);
                 bao.draw(g);
 
             }
+            // 死亡倒计时
+            if(!plane.live) {
 
+                g.setColor(Color.white);
+                Font f = new Font("宋体", Font.BOLD, 50);
+                g.setFont(f);
+                g.drawString("时间：" + period + "秒", (int) plane.x, (int) plane.y);
+            }
         }
 
 

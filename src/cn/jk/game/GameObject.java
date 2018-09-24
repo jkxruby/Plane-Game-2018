@@ -8,7 +8,7 @@ import java.awt.*;
 public class GameObject {
     Image img;
     double x,y;
-    int speed = 5;
+    int speed = 3;
     int width, height;
 
     public void drawSelf(Graphics g){
