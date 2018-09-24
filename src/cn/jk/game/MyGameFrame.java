@@ -23,6 +23,7 @@ public class MyGameFrame extends JFrame {
     Plane plane = new Plane(planeImg,250,250);
     Shell shell = new Shell();
     Shell[] shells = new Shell[50];
+    Explode bao;  //这里没有new对象，这里只是声明bao 是一个爆炸对象
 
 
     @Override
@@ -30,14 +31,21 @@ public class MyGameFrame extends JFrame {
         g.drawImage(bg,0,0,null);
 
         plane.drawSelf(g);  //画飞机
+
+
         //shell.draw(g);   //画一个炮弹
         for(int i=0; i<shells.length; i++){
             shells[i].draw(g);
 
-            boolean peng = shells[i].getRect().intersects(plane.getRect());
 
+            // 飞机和炮弹发生碰撞检测
+            boolean peng = shells[i].getRect().intersects(plane.getRect());
             if(peng){
                 plane.live = false;
+                if(bao == null){
+                    bao = new Explode(plane.x, plane.y);
+                }
+                bao.draw(g);
 
             }
 
